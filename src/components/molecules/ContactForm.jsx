@@ -145,7 +145,7 @@ drawing_marks_c: formData.drawing_marks_c ? parseInt(formData.drawing_marks_c) :
   };
 
 return (
-    <form onSubmit={handleSubmit} className="space-y-6 pb-8">
+<form onSubmit={handleSubmit} className="space-y-6 pb-8 max-h-[70vh] overflow-y-auto pr-2">
 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Input
           label="Full Name"
