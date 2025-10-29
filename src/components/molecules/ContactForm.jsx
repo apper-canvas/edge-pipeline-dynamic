@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { toast } from "react-toastify";
+import React, { useState, useEffect } from "react";
+import Input from "@/components/atoms/Input";
 import Select from "@/components/atoms/Select";
 import Button from "@/components/atoms/Button";
-import Input from "@/components/atoms/Input";
+import { toast } from "react-toastify";
 
 const ContactForm = ({ contact, onSave, onCancel }) => {
 const [formData, setFormData] = useState({
@@ -18,8 +18,7 @@ const [formData, setFormData] = useState({
     chemistry_marks_c: "",
     history_marks_c: "",
 drawing_marks_c: "",
-    geography_marks_c: "",
-    ads_marks_c: ""
+    geography_marks_c: ""
   });
   
   const [errors, setErrors] = useState({});
@@ -40,8 +39,7 @@ notes_c: contact.notes_c || "",
 chemistry_marks_c: contact.chemistry_marks_c || "",
         history_marks_c: contact.history_marks_c || "",
 drawing_marks_c: contact.drawing_marks_c || "",
-        geography_marks_c: contact.geography_marks_c || "",
-        ads_marks_c: contact.ads_marks_c || ""
+        geography_marks_c: contact.geography_marks_c || ""
       });
     }
   }, [contact]);
@@ -97,17 +95,14 @@ if (formData.history_marks_c && isNaN(formData.history_marks_c)) {
       newErrors.history_marks_c = "History marks must be a valid number";
     }
     
-if (formData.drawing_marks_c && isNaN(formData.drawing_marks_c)) {
-      newErrors.drawing_marks_c = "Drawing marks must be a valid number";
+    if (formData.drawing_marks_c && isNaN(formData.drawing_marks_c)) {
+newErrors.drawing_marks_c = "Drawing marks must be a valid number";
     }
     
     if (formData.geography_marks_c && isNaN(formData.geography_marks_c)) {
       newErrors.geography_marks_c = "Geography marks must be a valid number";
     }
     
-    if (formData.ads_marks_c && isNaN(formData.ads_marks_c)) {
-      newErrors.ads_marks_c = "Ads marks must be a valid number";
-    }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -131,8 +126,7 @@ maths_marks_c: formData.maths_marks_c ? parseInt(formData.maths_marks_c) : null,
 chemistry_marks_c: formData.chemistry_marks_c ? parseInt(formData.chemistry_marks_c) : null,
         history_marks_c: formData.history_marks_c ? parseInt(formData.history_marks_c) : null,
 drawing_marks_c: formData.drawing_marks_c ? parseInt(formData.drawing_marks_c) : null,
-        geography_marks_c: formData.geography_marks_c ? parseInt(formData.geography_marks_c) : null,
-        ads_marks_c: formData.ads_marks_c ? parseInt(formData.ads_marks_c) : null
+        geography_marks_c: formData.geography_marks_c ? parseInt(formData.geography_marks_c) : null
       };
 
       await onSave(contactData);
@@ -145,7 +139,7 @@ drawing_marks_c: formData.drawing_marks_c ? parseInt(formData.drawing_marks_c) :
   };
 
 return (
-<form onSubmit={handleSubmit} className="space-y-6 pb-8 max-h-[70vh] overflow-y-auto pr-2">
+    <form onSubmit={handleSubmit} className="space-y-6 pb-8">
 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Input
           label="Full Name"
@@ -201,19 +195,17 @@ return (
 
 <Input
           label="Maths Marks"
-          name="maths_marks_c"
-          type="number"
+          type="text"
           value={formData.maths_marks_c}
-          onChange={handleChange}
+          onChange={(e) => handleChange("maths_marks_c", e.target.value)}
           error={errors.maths_marks_c}
           placeholder="Enter maths marks"
         />
         <Input
           label="Chemistry Marks"
-          name="chemistry_marks_c"
-          type="number"
+          type="text"
           value={formData.chemistry_marks_c}
-          onChange={handleChange}
+          onChange={(e) => handleChange("chemistry_marks_c", e.target.value)}
           error={errors.chemistry_marks_c}
           placeholder="Enter chemistry marks"
 />
@@ -250,24 +242,6 @@ return (
             <p className="mt-1 text-sm text-red-600">{errors.drawing_marks_c}</p>
           )}
 </div>
-
-{/* Ads Marks Field */}
-          <div className="w-full">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Ads Marks
-            </label>
-            <Input
-              type="number"
-              name="ads_marks_c"
-              placeholder="Enter ads marks"
-              value={formData.ads_marks_c}
-              onChange={handleChange}
-              className="w-full"
-            />
-            {errors.ads_marks_c && (
-              <p className="mt-1 text-sm text-red-600">{errors.ads_marks_c}</p>
-            )}
-          </div>
         
         <div className="w-full">
           <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -286,10 +260,10 @@ return (
           )}
         </div>
         
-<Input
+        <Input
           label="Tags"
-          name="tags_c"
-          value={formData.tags_c}
+          name="tags"
+          value={formData.tags}
           onChange={handleChange}
           placeholder="Enter tags separated by commas"
           className="md:col-span-2"
@@ -297,22 +271,22 @@ return (
 
         <Input
           label="Photo URL"
-          name="photo_url_c"
+          name="photoUrl"
           type="url"
-          value={formData.photo_url_c}
+          value={formData.photoUrl}
           onChange={handleChange}
           placeholder="Enter photo URL (optional)"
           className="md:col-span-2"
         />
       </div>
 
-<div>
+      <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">
           Notes
         </label>
         <textarea
-          name="notes_c"
-          value={formData.notes_c}
+          name="notes"
+          value={formData.notes}
           onChange={handleChange}
           rows={4}
           className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200"
