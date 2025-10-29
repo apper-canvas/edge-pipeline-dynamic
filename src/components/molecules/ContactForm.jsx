@@ -15,14 +15,15 @@ const [formData, setFormData] = useState({
     photo_url_c: "",
     science_marks_c: "",
     maths_marks_c: "",
-chemistry_marks_c: "",
-    history_marks_c: ""
+    chemistry_marks_c: "",
+    history_marks_c: "",
+    drawing_marks_c: ""
   });
   
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  useEffect(() => {
+useEffect(() => {
     if (contact) {
 setFormData({
         name_c: contact.name_c || "",
@@ -35,7 +36,8 @@ notes_c: contact.notes_c || "",
         science_marks_c: contact.science_marks_c || "",
         maths_marks_c: contact.maths_marks_c || "",
 chemistry_marks_c: contact.chemistry_marks_c || "",
-        history_marks_c: contact.history_marks_c || ""
+        history_marks_c: contact.history_marks_c || "",
+        drawing_marks_c: contact.drawing_marks_c || ""
       });
     }
   }, [contact]);
@@ -87,9 +89,12 @@ if (formData.maths_marks_c && isNaN(formData.maths_marks_c)) {
     if (formData.chemistry_marks_c && isNaN(formData.chemistry_marks_c)) {
       newErrors.chemistry_marks_c = "Chemistry marks must be a valid number";
 }
-    
-    if (formData.history_marks_c && isNaN(formData.history_marks_c)) {
+if (formData.history_marks_c && isNaN(formData.history_marks_c)) {
       newErrors.history_marks_c = "History marks must be a valid number";
+    }
+    
+    if (formData.drawing_marks_c && isNaN(formData.drawing_marks_c)) {
+      newErrors.drawing_marks_c = "Drawing marks must be a valid number";
     }
     
     setErrors(newErrors);
@@ -111,9 +116,10 @@ const contactData = {
 ...formData,
         tags_c: formData.tags_c,
         science_marks_c: formData.science_marks_c ? parseInt(formData.science_marks_c) : null,
-        maths_marks_c: formData.maths_marks_c ? parseInt(formData.maths_marks_c) : null,
+maths_marks_c: formData.maths_marks_c ? parseInt(formData.maths_marks_c) : null,
 chemistry_marks_c: formData.chemistry_marks_c ? parseInt(formData.chemistry_marks_c) : null,
-        history_marks_c: formData.history_marks_c ? parseInt(formData.history_marks_c) : null
+        history_marks_c: formData.history_marks_c ? parseInt(formData.history_marks_c) : null,
+        drawing_marks_c: formData.drawing_marks_c ? parseInt(formData.drawing_marks_c) : null
       };
 
       await onSave(contactData);
@@ -196,8 +202,7 @@ return (
           error={errors.chemistry_marks_c}
           placeholder="Enter chemistry marks"
 />
-        
-        <div className="w-full">
+<div className="w-full">
           <label className="block text-sm font-medium text-gray-700 mb-1">
             History Marks
           </label>
@@ -211,6 +216,23 @@ return (
           />
           {errors.history_marks_c && (
             <p className="mt-1 text-sm text-red-600">{errors.history_marks_c}</p>
+          )}
+        </div>
+        
+        <div className="w-full">
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Drawing Marks
+          </label>
+          <Input
+            type="number"
+            name="drawing_marks_c"
+            value={formData.drawing_marks_c}
+            onChange={handleChange}
+            placeholder="e.g., 85"
+            className="w-full"
+          />
+          {errors.drawing_marks_c && (
+            <p className="mt-1 text-sm text-red-600">{errors.drawing_marks_c}</p>
           )}
         </div>
         <Input
