@@ -17,7 +17,8 @@ const [formData, setFormData] = useState({
     maths_marks_c: "",
     chemistry_marks_c: "",
     history_marks_c: "",
-    drawing_marks_c: ""
+drawing_marks_c: "",
+    geography_marks_c: ""
   });
   
   const [errors, setErrors] = useState({});
@@ -37,7 +38,8 @@ notes_c: contact.notes_c || "",
         maths_marks_c: contact.maths_marks_c || "",
 chemistry_marks_c: contact.chemistry_marks_c || "",
         history_marks_c: contact.history_marks_c || "",
-        drawing_marks_c: contact.drawing_marks_c || ""
+drawing_marks_c: contact.drawing_marks_c || "",
+        geography_marks_c: contact.geography_marks_c || ""
       });
     }
   }, [contact]);
@@ -94,7 +96,11 @@ if (formData.history_marks_c && isNaN(formData.history_marks_c)) {
     }
     
     if (formData.drawing_marks_c && isNaN(formData.drawing_marks_c)) {
-      newErrors.drawing_marks_c = "Drawing marks must be a valid number";
+newErrors.drawing_marks_c = "Drawing marks must be a valid number";
+    }
+    
+    if (formData.geography_marks_c && isNaN(formData.geography_marks_c)) {
+      newErrors.geography_marks_c = "Geography marks must be a valid number";
     }
     
     setErrors(newErrors);
@@ -119,7 +125,8 @@ const contactData = {
 maths_marks_c: formData.maths_marks_c ? parseInt(formData.maths_marks_c) : null,
 chemistry_marks_c: formData.chemistry_marks_c ? parseInt(formData.chemistry_marks_c) : null,
         history_marks_c: formData.history_marks_c ? parseInt(formData.history_marks_c) : null,
-        drawing_marks_c: formData.drawing_marks_c ? parseInt(formData.drawing_marks_c) : null
+drawing_marks_c: formData.drawing_marks_c ? parseInt(formData.drawing_marks_c) : null,
+        geography_marks_c: formData.geography_marks_c ? parseInt(formData.geography_marks_c) : null
       };
 
       await onSave(contactData);
@@ -234,7 +241,25 @@ return (
           {errors.drawing_marks_c && (
             <p className="mt-1 text-sm text-red-600">{errors.drawing_marks_c}</p>
           )}
+</div>
+        
+        <div className="w-full">
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Geography Marks
+          </label>
+          <Input
+            type="number"
+            name="geography_marks_c"
+            value={formData.geography_marks_c}
+            onChange={handleChange}
+            placeholder="e.g., 85"
+            className="w-full"
+          />
+          {errors.geography_marks_c && (
+            <p className="mt-1 text-sm text-red-600">{errors.geography_marks_c}</p>
+          )}
         </div>
+        
         <Input
           label="Tags"
           name="tags"
